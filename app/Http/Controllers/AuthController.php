@@ -67,25 +67,25 @@ class AuthController extends Controller
     }
 
     // resetPassword
-    // public function resetPassword(Request $request)
-    // {
-    //     Validator::make($request->all(), [
-    //         'email' => 'required|email|exists:users,email',
-    //         'password' => 'required|min:8|confirmed',
-    //         'password_confirmation' => 'required|min:8',
-    //     ], [])->validate();
-    //     $data = DB::table('password_resets')->where([
-    //         'email' => $request->email,
-    //         'token' => $request->token,
-    //     ])->first();
-    //     if (!$data) {
-    //         return back()->withInput()->with(['message' => 'something went wrong.']);
-    //     }
+    public function resetPassword(Request $request)
+    {
+        Validator::make($request->all(), [
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:8|confirmed',
+            'password_confirmation' => 'required|min:8',
+        ], [])->validate();
+        $data = DB::table('password_resets')->where([
+            'email' => $request->email,
+            'token' => $request->token,
+        ])->first();
+        if (!$data) {
+            return back()->withInput()->with(['message' => 'something went wrong.']);
+        }
 
-    //     $user = User::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
-    //     DB::table('password_resets')->where(['email' => $request->email])->delete();
-    //     toast('Password has been changed', 'success');
+        $user = User::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
+        DB::table('password_resets')->where(['email' => $request->email])->delete();
+        toast('Password has been changed', 'success');
 
-    //     return redirect('/')->with('message', 'Password has been changed!');
-    // }
+        return redirect('/')->with('message', 'Password has been changed!');
+    }
 }
