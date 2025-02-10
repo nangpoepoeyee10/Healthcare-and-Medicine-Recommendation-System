@@ -1,60 +1,95 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('/storage/hhh.avif'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
 
-        <x-validation-errors class="mb-4" />
+        .login-container {
+            background-color: white; 
+            padding: 70px;
+            border-radius: 20px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
 
-        <form method="POST" action="{{ route('register') }}">
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 150px; 
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="storage/love.png" alt="Logo" class="logo" style="width:100px; height:60px;"> 
+        <form action="{{route('register')}}" method="post">
             @csrf
-
-            <div>
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-4">
-                    <x-label for="terms">
-                        <div class="flex items-center">
-                            <x-checkbox name="terms" id="terms" required />
-
-                            <div class="ml-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Terms of Service').'</a>',
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Privacy Policy').'</a>',
-                                ]) !!}
-                            </div>
-                        </div>
-                    </x-label>
+            <div class="mb-3">
+                <label for="name" class="form-label">Username</label>
+                <input type="name" name="name" class="form-control form-control-lg bg-light fs-6 @error('name') is-invalid @enderror">        
                 </div>
-            @endif
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
+            <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" name="email" class="form-control form-control-lg bg-light fs-6 @error('email') is-invalid @enderror">          
             </div>
-        </form>
-    </x-authentication-card>
-</x-guest-layout>
+            <div class="mb-4">
+                <label for="phone" class="form-label">Phone Number</label>
+              <input type="phone" class="form-control form-control-lg bg-light fs-6 @error('phone') is-invalid @enderror" name="phone">         
+             </div>
+             <div class="mb-4">
+                <label>Gender</label>
+            <select name="gender" class="form-control">
+                <option value="">Choose Gender...</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>         
+             </div>
+             <div class="mb-4">
+                <label for="address" class="form-label">Address</label>
+              <input type="address" class="form-control form-control-lg bg-light fs-6 @error('address') is-invalid @enderror" name="address">         
+             </div>
+            <div class="mb-4">
+                <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control form-control-lg bg-light fs-6 @error('password') is-invalid @enderror" name="password">         
+             </div>
+             <div class="mb-4">
+                <label for="confirm_password" class="form-label"> Confirm Password</label>
+              <input type="password" class="form-control form-control-lg bg-light fs-6 @error('confirm_password') is-invalid @enderror" name="confirm_password">
+                        
+             </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </div>
+
+         </form> 
+    
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

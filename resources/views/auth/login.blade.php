@@ -17,8 +17,6 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            
-
         }
 
         .login-container {
@@ -67,7 +65,7 @@
                 <div class="input-group mb-4 d-flex justify-content-between">
                 <div></div>
                 <div class="col-md-6">
-                    <small><a href="{{ url('register') }}" style="text-align: left !important;">Register?</a></small>
+                    <small><a href="{{ url('registerPage') }}" style="text-align: left !important;">Register?</a></small>
                 </div>
                 <div class="forgot col-md-6">
                     <small><a href="{{ route('password.request') }}">Forgot Password?</a></small>

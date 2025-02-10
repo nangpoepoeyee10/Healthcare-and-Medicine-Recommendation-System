@@ -25,9 +25,44 @@ class AuthController extends Controller
     }
 
     // register
-    public function register(Request $request)
+    public function registerPage()
     {
         return view('auth.register');
+    }
+
+    public function register(Request $request)
+    {
+        // dd($request->all());
+        $this->userValidationCheck($request);
+        $data = $this->requestUserData($request);
+
+        User::create($data);
+
+        return redirect()->route('dashboard');
+    }
+
+    private function userValidationCheck($request)
+    {
+        Validator::make($request->all(), [
+            'name' => 'required|unique:users,name',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required',
+            'gender' => 'required|in:male,female',
+            'address' => 'required',
+            'password' => 'required|min:6',
+        ]);
+    }
+
+    private function requestUserData($request)
+    {
+        return [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'password' => Hash::make($request->password),
+        ];
     }
 
     // forgotPasswordPage
