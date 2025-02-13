@@ -81,6 +81,14 @@
               <input type="password" class="form-control form-control-lg bg-light fs-6 @error('confirm_password') is-invalid @enderror" name="confirm_password">
                         
              </div>
+             <div class="mb-4">
+                <label for="role" class="form-label">Role</label>
+                <select name="role" class="form-control">
+                    <option value="">Choose Role...</option>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>                           
+             </div>
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary">Register</button>
             </div>

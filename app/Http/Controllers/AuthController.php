@@ -15,13 +15,26 @@ use Illuminate\Support\Str;
 class AuthController extends Controller
 {
     // login
-    public function loginUser(Request $request)
+    public function adminLogin(Request $request)
     {
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], true)) {
-            return redirect()->route('dashboard');
-        } else {
-            return redirect('/');
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($credentials, true)) {
+            $request->session()->regenerate();   // Prevent session issues
+
+            if (Auth::user()->role == 'admin') {
+                return redirect()->route('categoryList');
+            } else {
+                return redirect()->route('userHome');
+            }
         }
+
+        return back()->withErrors([
+            'email' => 'Invalid credentials',
+        ]);
     }
 
     // register
@@ -50,6 +63,7 @@ class AuthController extends Controller
             'gender' => 'required|in:male,female',
             'address' => 'required',
             'password' => 'required|min:6',
+            'role' => 'required|in:user,admin',
         ]);
     }
 
@@ -62,6 +76,7 @@ class AuthController extends Controller
             'gender' => $request->gender,
             'address' => $request->address,
             'password' => Hash::make($request->password),
+            'role' => $request->role,
         ];
     }
 

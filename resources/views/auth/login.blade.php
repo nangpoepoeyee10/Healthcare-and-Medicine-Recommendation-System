@@ -46,7 +46,7 @@
 <body>
     <div class="login-container">
         <img src="storage/love.png" alt="Logo" class="logo" style="width:100px; height:60px;"> 
-        <form action="{{route('loginUser')}}" method="post">
+        <form action="{{ route('loginAuth') }}" method="post">
             @csrf
             <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
